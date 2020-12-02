@@ -24,7 +24,7 @@ streamKey = "YOUR STREAM KEY HERE" #Copied from your Twitch channel settings.
 
 
 #Command to start ffmpeg streaming.
-ffmpeg_command = "/home/pi/bin/ffmpeg -nostdin -re -f v4l2 -s '1280x720' -framerate 24 -i /dev/video0 -f alsa -ac 2 -i hw:CARD=Link,DEV=0 -vcodec libx264 -framerate 24 -rtbufsize 1500k -s 1280x720 -preset ultrafast -pix_fmt yuv420p -crf 17 -force_key_frames 'expr:gte(t,n_forced*2)' -minrate 850k -maxrate 1000k -b:v 1000k -bufsize 1000k -acodec libmp3lame -rtbufsize 1500k -b 96k -ar 44100 -f flv - | ffmpeg -f flv -i - -c copy -f flv -drop_pkts_on_overflow 1 -attempt_recovery 1 -recovery_wait_time 1 'rtmp://live.twitch.tv/app/" + streamKey + "'\n"
+ffmpeg_command = "ffmpeg -nostdin -re -f v4l2 -s '1280x720' -framerate 24 -i /dev/video0 -f alsa -ac 2 -i hw:CARD=Link,DEV=0 -vcodec libx264 -framerate 24 -rtbufsize 1500k -s 1280x720 -preset ultrafast -pix_fmt yuv420p -crf 17 -force_key_frames 'expr:gte(t,n_forced*2)' -minrate 850k -maxrate 1000k -b:v 1000k -bufsize 1000k -acodec libmp3lame -rtbufsize 1500k -b 96k -ar 44100 -f flv - | ffmpeg -f flv -i - -c copy -f flv -drop_pkts_on_overflow 1 -attempt_recovery 1 -recovery_wait_time 1 'rtmp://live.twitch.tv/app/" + streamKey + "'\n"
 proc_running = False
 while True:
     line = ser.readline()
